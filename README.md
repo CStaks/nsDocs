@@ -1,34 +1,81 @@
-note to the developer: for any website that you may create for this project, perferably keep the theme of https://cstaks.github.io/ and make sure to use /docs/.
+# nsdocs
 
-discord webhook workflow: follow the steps in order to make the discord webhook functional
+A lightweight static site generator for project wikis. Markdown in, plain HTML out.
 
-# Project Name
+- No template engines, no JS framework, one Python file.
+- Dark/light mode, code copy buttons, GitHub-style callouts, tables, sidebar nav.
+- Ships as a CLI and a GitHub Action.
 
-Short description of what this does.
+## Install
 
-## 🚀 Getting Started
-Steps to run locally or set up the project.
+```bash
+pip install git+https://github.com/CStaks/nsdocs.git
+```
 
-## 🤝 Contributing
-See CONTRIBUTING.md
+Requires Python 3.9+ and `pyyaml`.
 
-### Attribution Requirement
+## Usage
 
-This project is licensed under the MIT License.
+1. Put Markdown files in `docs/wiki-src/`.
+2. Add a `nsdocs.yml` config (see schema below).
+3. Run:
 
-If you use or redistribute substantial portions of this codebase (such as entire files, major components, or closely derived works), you must:
+```bash
+nsdocs                 # build to docs/wiki/
+nsdocs --check         # CI mode: fail if pages are stale
+nsdocs --clean         # remove orphaned .html files
+```
 
-* Retain the original license and copyright notice
-* Provide clear and visible credit to this repository
+## Config
 
-Visible credit means mentioning this repository in your README, project description, or other prominent documentation.
+`nsdocs.yml` in the repo root:
 
-Small snippets or minor usage do not require attribution.
+```yaml
+site_name: "novyra"
+brand_name: "novyra"
+site_url: "https://CStaks.github.io/novyra/"
+accent_color: "#238FC9"
+license_text: "novyra OS documentation."
 
-This requirement exists to ensure proper credit is given to the original authors.
+repo:
+  url: "https://github.com/CStaks/novyra"
+  branch: "main"
 
+assets:
+  css: "../wiki.css"
+  favicon_dark: "../primary-dark-logo.ico"
+  favicon_light: "../primary-light-logo.ico"
 
-## 📄 License
-MIT 
-CStaks uses the MIT license by default.
+features:
+  theme_toggle: true
+  clean_stale_files: true
+  edit_button: true
+  copy_button: true
 
+nav:
+  "Getting started":
+    - getting-started.md
+    - installation.md
+```
+
+Pages can set a title and description with front matter:
+
+```markdown
+---
+name: Installation
+description: How to install novyra
+---
+```
+
+## GitHub Action
+
+```yaml
+- uses: CStaks/nsdocs@v1
+  with:
+    config: nsdocs.yml
+    check: false
+```
+
+## License
+
+MIT (CStaks). If you redistribute substantial portions of this code, keep the license notice and credit this repository.
