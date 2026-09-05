@@ -1,0 +1,25 @@
+site_name: "novyra"
+brand_name: "novyra"
+site_url: "https://CStaks.github.io/novyra/"
+accent_color: "#238FC9"
+license_text: "novyra OS documentation."
+
+repo:
+  url: "https://github.com/CStaks/novyra"
+  branch: "main"
+
+assets:
+  css: "../wiki.css"
+  favicon_dark: "../primary-dark-logo.ico"
+  favicon_light: "../primary-light-logo.ico"
+
+features:
+  theme_toggle: true
+  clean_stale_files: true
+  edit_button: true
+  copy_button: true
+
+nav:
+  "Getting started":
+    - getting-started.md
+    - installation.md
